@@ -1,140 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Trophy Atlas — GTA VI Trophy Guide &amp; Tracker</title>
-<meta name="description" content="The complete offline guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI: roadmap to the platinum, a guide for every trophy with sources, and a checklist that saves in your browser.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23ff2e88'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3EL%3C/text%3E%3C/svg%3E">
+<title>Leonida Trophy Guide — GTA VI (PS5)</title>
+<meta name="description" content="Offline checklist and guide for all 55 Grand Theft Auto VI trophies on PlayStation 5: tracker, roadmap, missables and cited guides.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="masthead">
-  <div class="masthead-inner">
-    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; 55 trophies</p>
-    <h1>Leonida Trophy Atlas</h1>
-    <p class="lede">Every trophy, every guide, one road to the platinum. Tick them off as you earn them — your progress stays in this browser, and you can take it with you as a file.</p>
-    <div class="progress-wrap" aria-label="Platinum progress">
-      <div class="progress-line">
-        <span id="progressText">0 of 55 earned</span>
-        <span id="progressPct">0%</span>
-      </div>
-      <div class="progress-bar"><div id="progressFill"></div></div>
-      <div class="grade-pills" id="gradePills"></div>
+<header class="site-header">
+  <div class="header-inner">
+    <p class="eyebrow">Grand Theft Auto VI &middot; PlayStation 5</p>
+    <h1 id="page-title">Leonida Trophy Guide</h1>
+    <p class="subtitle">Every one of the 55 official trophies — tracker, roadmap and cited guides. Works fully offline; your progress stays in this browser.</p>
+    <div class="progress-wrap" id="progress-wrap" aria-label="Overall progress">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <p class="progress-text" id="progress-text">Loading trophies…</p>
     </div>
+    <p class="grade-counts" id="grade-counts"></p>
   </div>
 </header>
 
 <main>
-  <section class="toolbar" aria-label="Find and filter trophies">
-    <input id="search" type="search" placeholder="Search trophies, missions, places…" aria-label="Search trophies">
-    <div class="chips" id="kindChips" role="group" aria-label="Filter by kind"></div>
+  <section class="roadmap" id="roadmap" aria-labelledby="roadmap-heading">
+    <h2 id="roadmap-heading">Roadmap to the platinum</h2>
+    <p class="roadmap-intro">One playthrough is enough. PowerPyx rates the platinum 4 out of 10 and about 200 hours; there are no online trophies and no mission replay, so keep a manual save at the start and end of each chapter. Cheats disable trophies and saving — keep them off.</p>
+    <ol class="roadmap-steps" id="roadmap-steps"></ol>
+    <p class="roadmap-sources" id="roadmap-sources"></p>
+  </section>
+
+  <section class="missable-banner" id="missable-banner" aria-labelledby="missable-heading">
+    <h2 id="missable-heading">The one trophy you can miss</h2>
+    <p><strong>Positive Mental Attitude</strong> (meditate at every spot) is the only trophy PowerPyx flags as possibly missable: during Chapter 1, one morning at Jason&rsquo;s house, Lucia meditates on the balcony. Follow her and accept the optional quest — that meditation is gone after Chapter 1. Everything else can be finished after the story.</p>
+  </section>
+
+  <section class="toolbar" id="toolbar" aria-label="Trophy filters and tools">
     <div class="toolbar-row">
-      <label>Grade
-        <select id="gradeFilter">
-          <option value="all">All grades</option>
-          <option value="platinum">Platinum</option>
-          <option value="gold">Gold</option>
-          <option value="silver">Silver</option>
-          <option value="bronze">Bronze</option>
-        </select>
-      </label>
-      <label class="check"><input id="earnedOnly" type="checkbox"> Earned only</label>
-      <label class="check"><input id="missableOnly" type="checkbox"> Missable only</label>
-      <label class="check spoiler"><input id="spoilerToggle" type="checkbox" checked> Hide story spoilers</label>
-      <span class="spacer"></span>
-      <button id="exportBtn" type="button">Export progress</button>
-      <label class="import-btn">Import progress <input id="importFile" type="file" accept="application/json,.json"></label>
-      <button id="resetBtn" type="button" class="quiet">Reset</button>
+      <label class="search-label" for="search-input">Search</label>
+      <input type="search" id="search-input" placeholder="Search name or description…" autocomplete="off">
+      <label class="select-label" for="grade-select">Grade</label>
+      <select id="grade-select">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+      <label class="select-label" for="sort-select">Sort</label>
+      <select id="sort-select">
+        <option value="default">List order</option>
+        <option value="grade">Grade, then name</option>
+        <option value="name">Name A–Z</option>
+      </select>
     </div>
-    <p class="toolbar-note" id="resultCount"></p>
+    <div class="toolbar-row" id="filter-chips" role="group" aria-label="Filter by kind">
+      <button type="button" class="chip is-active" data-filter="all">All 55</button>
+      <button type="button" class="chip" data-filter="story">Story</button>
+      <button type="button" class="chip" data-filter="missable">Missable</button>
+      <button type="button" class="chip" data-filter="collectible">Collectibles</button>
+      <button type="button" class="chip" data-filter="activity">Activities</button>
+      <button type="button" class="chip" data-filter="online">Online</button>
+      <button type="button" class="chip" data-filter="earned">Earned</button>
+      <button type="button" class="chip" data-filter="remaining">Still to earn</button>
+    </div>
+    <div class="toolbar-row tools-row">
+      <label class="spoiler-toggle"><input type="checkbox" id="spoiler-toggle"> Hide story spoilers until earned</label>
+      <span class="tools-spacer"></span>
+      <button type="button" id="export-button">Export progress</button>
+      <button type="button" id="import-button">Import progress</button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden>
+      <button type="button" id="reset-button">Reset</button>
+    </div>
+    <p class="result-count" id="result-count"></p>
   </section>
 
-  <section class="roadmap" id="roadmap" aria-label="Roadmap to the platinum">
-    <h2>The road to the platinum</h2>
-    <p class="roadmap-intro">PowerPyx rates this set 4/10 and about 200 hours; Push Square warns it can run past 300. One playthrough is enough, everything is offline, and there are no difficulty trophies. Work the three phases in order.</p>
-    <div class="phase-grid">
-      <article class="phase">
-        <p class="phase-num">Phase 1</p>
-        <h3>Play the story <span>60–80 hours</span></h3>
-        <p>Finish Chapters 1–5 and enjoy it — the story trophies pop on their own. While you play, scan new vehicles with the WAiNK app and study animals through the binoculars; both count toward later trophies. Do optional missions as they appear: many unlock features the trophies need.</p>
-        <ul>
-          <li><strong>Do the Chapter 1 balcony meditation</strong> — the only thing in the game you can miss (see below).</li>
-          <li>Keep a manual save at the start of every chapter. There is no mission replay and no New Game+.</li>
-          <li>Make a save before the final mission.</li>
-        </ul>
-      </article>
-      <article class="phase">
-        <p class="phase-num">Phase 2</p>
-        <h3>The 100% checklist <span>~100 hours</span></h3>
-        <p>After the story, the checklist appears under Progress, then Stats, then 100% Completion. It is closer to 60% true completion: most side quests are not required and most collectibles are only partly required.</p>
-        <ul>
-          <li>Scan any 200 of 277 vehicles; study any 100 of 255 animals.</li>
-          <li>Complete any 70 of 80 challenges; 300 stunts; 100 optional missions.</li>
-          <li>All robberies, underwater discoveries, shooting ranges, drone races and Bret&rsquo;s quests.</li>
-        </ul>
-      </article>
-      <article class="phase">
-        <p class="phase-num">Phase 3</p>
-        <h3>Cleanup <span>~10 hours</span></h3>
-        <p>Strangers &amp; Freaks strands are not needed for 100%, so finish the eight that count, then sweep up whatever miscellaneous trophies are left — the partner robberies, the tank, the plane, the showroom Banshee and the money trophies.</p>
-        <ul>
-          <li>Finish the 8 Strangers &amp; Freaks strands.</li>
-          <li>Check this tracker for anything unmarked and work it in any order.</li>
-          <li>The platinum pops the moment the 54th other trophy does.</li>
-        </ul>
-      </article>
-    </div>
-    <div class="warnings">
-      <article class="warn missable">
-        <h3>⚠ The one missable trophy</h3>
-        <p><strong>Positive Mental Attitude</strong> — meditate at every spot. One meditation exists only in Chapter 1, on the balcony of Jason&rsquo;s house: after the mission Down to Earth, talk to Lucia in the kitchen in the morning, follow her out and choose Accept. It is still unconfirmed whether the trophy actually requires it, but it costs a minute and it is the only risk in the whole list. Everything else can be finished in free-roam after the story.</p>
-      </article>
-      <article class="warn">
-        <h3>Cheats switch trophies off</h3>
-        <p>Using any cheat disables trophies and saving. Keep cheats off for the whole run — and note that cheats only unlock after the story anyway.</p>
-      </article>
-      <article class="warn">
-        <h3>Save like it matters</h3>
-        <p>15 manual save slots plus 1 autosave. Keep one save at the start and one at the end of each chapter (10 slots), and rotate the remaining 5 for free-roam cleanup.</p>
-      </article>
-    </div>
-    <aside class="checklist-strip" aria-label="100 percent checklist at a glance">
-      <h3>100% checklist at a glance</h3>
-      <dl>
-        <div><dt>Vehicles scanned</dt><dd>200 of 277</dd></div>
-        <div><dt>Animals studied</dt><dd>100 of 255</dd></div>
-        <div><dt>Challenges</dt><dd>70 of 80</dd></div>
-        <div><dt>Stunts</dt><dd>300 of 397</dd></div>
-        <div><dt>Optional missions</dt><dd>100</dd></div>
-        <div><dt>Meditations</dt><dd>15 of 18</dd></div>
-        <div><dt>Bank vaults</dt><dd>8 of 8</dd></div>
-        <div><dt>Gang operations</dt><dd>39 of 39</dd></div>
-      </dl>
-    </aside>
+  <section class="trophy-list" id="trophy-list" aria-label="Trophy checklist">
+    <p class="loading" id="loading-note">Loading the trophy list…</p>
   </section>
 
-  <section class="trophy-section" aria-label="Trophy list">
-    <div class="section-head">
-      <h2 id="listHeading">All 55 trophies</h2>
-      <p>Tap a trophy to open its guide. Official names and descriptions are shown as PlayStation publishes them; the guide text is written for this atlas and cites its source beside every trophy.</p>
-    </div>
-    <div class="trophy-grid" id="trophyGrid"></div>
-    <p class="empty" id="emptyMsg" hidden>No trophies match those filters. Try clearing the search or a filter.</p>
+  <section class="detail" id="detail" aria-labelledby="detail-heading" hidden>
+    <h2 id="detail-heading">Trophy guide</h2>
+    <div class="detail-body" id="detail-body"></div>
+    <button type="button" id="detail-close">Close guide</button>
   </section>
 
-  <section class="sources" aria-label="Sources and notes">
-    <h2>Sources &amp; notes</h2>
-    <p>Trophy names, descriptions and grades are the official PlayStation list as reported on 18 November 2026. Four trophies were still unconfirmed when the game launched on 19 November 2026, and this guide says so plainly on each of them instead of inventing a method. Guides draw on the sources below and cite them per trophy; the words are this atlas&rsquo;s own.</p>
-    <ul id="sourceList"></ul>
-    <p class="fineprint">An unofficial fan guide. Grand Theft Auto, GTA and Rockstar Games are trademarks of their owners; no official artwork, logo or game screenshot is used here. Your checklist is stored only in this browser (localStorage) unless you export it.</p>
+  <section class="about" id="about">
+    <h2>About this guide</h2>
+    <p>Names, descriptions and grades are the official PlayStation list, as listed by Exophase and PSNProfiles. Every guide is written in our own words for this page and names its sources; the five trophies whose methods the community has not confirmed yet say so honestly instead of inventing steps. This page loads nothing from the network: the trophy data ships with it, and the source links open only when you follow them.</p>
+    <p class="fine-print">Grand Theft Auto and GTA are trademarks of Rockstar Games. This is an unofficial fan guide, not affiliated with Rockstar Games or Sony Interactive Entertainment. No Rockstar artwork or logo is used here.</p>
   </section>
 </main>
 
-<footer>
-  <p>Leonida Trophy Atlas — an offline guide for Grand Theft Auto VI on PlayStation 5. List checked 19 November 2026.</p>
+<footer class="site-footer">
+  <p>Leonida Trophy Guide — an offline, open guide for GTA VI on PS5. 55 trophies: 1 platinum, 2 gold, 6 silver, 46 bronze. 0 online trophies.</p>
 </footer>
 
-<script type="module" src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
