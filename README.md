@@ -1,33 +1,32 @@
-# Leonida Trophy Atlas — GTA VI Trophy Guide & Tracker
+# Leonida Trophy Guide — GTA VI (PS5)
 
-[![make.fun · gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
-[![rank](https://make.fun/badge/gta6-trophy-guide-01/bongekanjing/gta6-trophy-guide-01/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
-[![reward](https://make.fun/badge/gta6-trophy-guide-01/bongekanjing/gta6-trophy-guide-01/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![make.fun](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
+[![Rank](https://make.fun/badge/gta6-trophy-guide-01/bongekanjing/gta6-trophy-guide-01/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
+[![Reward](https://make.fun/badge/gta6-trophy-guide-01/bongekanjing/gta6-trophy-guide-01/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
 
-An offline guide and tracker for all **55 PlayStation 5 trophies** of Grand Theft Auto VI (released 19 November 2026), built for the [gta6-trophy-guide-01 bounty on make.fun](https://make.fun/bounty/gta6-trophy-guide-01).
+An offline, open guide and tracker for all **55 Grand Theft Auto VI trophies** on PlayStation 5 — 1 platinum, 2 gold, 6 silver, 46 bronze, 28 hidden, 0 online — for the [gta6-trophy-guide-01 bounty](https://make.fun/bounty/gta6-trophy-guide-01) on make.fun.
 
 ## What it is
 
-- **Every trophy** with its official name, description and grade as PlayStation publishes them, plus a guide in our own words — what to do, where and how, and when it can be missed — with the source cited beside each one.
-- **A tracker**: tick trophies off and your progress saves in the browser (localStorage). Export it to a file and import it back on any machine.
-- **Filters by kind** (Story, Side quests, Collectibles, Activities, Robberies, 100%, Misc), by grade, by search, earned-only and missable-only.
-- **A spoiler setting** (on by default) that hides the names and descriptions of the 12 hidden story trophies until they are earned.
-- **A roadmap to the platinum** in three phases — story (60–80 h), the 100% checklist (~100 h), cleanup (~10 h) — with the one missable trophy flagged, a cheats warning, and save advice.
-- **Honest about the unknown**: four trophies had no confirmed unlock method at launch (In The Beginning…, Bad Luck, I Guess, The Truth Is Out There, Ten Pin). The guide says so plainly on each instead of inventing steps.
-
-## The numbers
-
-55 trophies: 1 Platinum, 2 Gold, 6 Silver, 46 Bronze. All offline, all single-player. One playthrough is enough; there is no mission replay and no New Game+. PowerPyx rates the set 4/10 and about 200 hours; Push Square warns it can run past 300. The only potentially missable trophy is Positive Mental Attitude (a Chapter 1 meditation).
+- **Tracker** — a checklist saved in your browser (localStorage): tick trophies off, see progress by grade and in PSN points (1,350 total), filter by story / missable / collectibles / activities / online / earned / still to earn, search, and sort.
+- **Roadmap to the platinum** — three steps, about 200 hours, difficulty 4/10, with sources. One playthrough is enough; there is no mission replay, so keep a manual save at the start and end of each chapter.
+- **The one missable trophy** — Positive Mental Attitude (meditate at every spot) is the only one that can be missed: during Chapter 1, follow Lucia to the balcony at Jason's house and accept the optional meditation.
+- **Cited guides** — every trophy has a guide written in our own words plus named sources (PowerPyx, Sixshore, GameMapa, KeenGamer, ViceCityHustle, EGamers). The five trophies the community has not solved yet say so honestly instead of inventing steps.
+- **Spoiler setting** — hides the names and descriptions of story trophies until you earn them.
+- **Export / import** — save your progress as a JSON file and bring it back on any device.
 
 ## Run it
 
-The guide is plain static files under `app/` — no build step, no network at runtime:
+Serve the `app/` folder over HTTP (it loads its data with `fetch`, so `file://` will not work):
 
 ```sh
-node serve.ts        # serves app/ on http://localhost:8080
+python3 -m http.server --directory app 8080
+# open http://localhost:8080/
 ```
 
-Or open `app/index.html` from any static server. `main.ts` (Node 22) copies `app/` and `screenshots/` to `/output` and writes `/output/dossier.json` for the make.fun scorer:
+## Build the entry
+
+`main.ts` copies `app/` and `screenshots/` into the output directory and writes `dossier.json` with `buildDossier` from `vendor/makefun-frontend.ts`. Node 22, standard library only:
 
 ```sh
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
@@ -35,9 +34,18 @@ mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
 ## Sources
 
-- Trophy list: Exophase via [Planet GTA 6](https://www.planetgta6.com/en/gta-6-trophies/), cross-checked with PSNProfiles and TrueAchievements.
-- Guides and roadmap: [PowerPyx — GTA 6 Trophy Guide & Roadmap](https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/) and [Push Square — GTA 6 Trophy Guide & Roadmap](https://www.pushsquare.com/guides/gta-6-trophy-guide-and-roadmap). Every trophy cites its sources in the app.
+- PowerPyx — GTA 6 Trophy Guide & Roadmap: https://www.powerpyx.com/gta-6-grand-theft-auto-vI-trophy-guide-roadmap/
+- Sixshore — GTA 6 Trophy and Achievement List: https://sixshore.com/gta-6/guides/trophies-and-achievements/
+- GameMapa — All 55 GTA 6 Trophies: https://gamemapa.com/en/gta-6/guides/gta-6-trophy-achievement-list/
+- KeenGamer — GTA 6 Trophy Guide: https://www.keengamer.com/articles/guides/gta-6-trophy-guide-platinum-roadmap-all-55-trophies/
+- ViceCityHustle — GTA 6 Trophy List: https://www.vicecityhustle.com/guides/gta-6-trophy-list-all-55-trophies
+- EGamers — GTA 6 Trophy List: https://egamers.io/gta-6-trophy-list-all-55-trophies-and-achievements-plus-the-hardest-ones/
+- Official names, descriptions and grades: the PlayStation trophy list, as listed by Exophase and PSNProfiles.
 
-## License
+## Referral
 
-MIT — see [LICENSE](LICENSE). An unofficial fan guide; Grand Theft Auto, GTA and Rockstar Games are trademarks of their owners. No official artwork, logo or game screenshot is used.
+Made with [make.fun](https://make.fun/r/204hjvsp) — sign up through our referral link: https://make.fun/r/204hjvsp
+
+## Disclaimer
+
+Grand Theft Auto and GTA are trademarks of Rockstar Games. This is an unofficial fan guide, not affiliated with Rockstar Games or Sony Interactive Entertainment. No Rockstar artwork or logo is used here.
